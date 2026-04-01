@@ -10,6 +10,12 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-24.04
+    env:
+      SEARCH_API_BASE: https://csl860x2oj.execute-api.us-east-2.amazonaws.com/prod
+      DOC_CATALOG_SOURCE_ID: docs-tenstorrent
+      DOC_SITE_BASE_URL: https://firdovsimammedovk.github.io/tenstorrent
+      DOCS_SEARCH_INGEST_API_KEY_ID: 427rdpxpb6
+      DOCS_SEARCH_INGEST_API_KEY: ${{ secrets.DOCS_SEARCH_INGEST_API_KEY_DOCS_TENSTORRENT }}
 
     steps:
       - name: Checkout repository
@@ -62,3 +68,33 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./output/
           force_orphan: true
+      - name: Trigger remote search indexing
+        run: |
+          set -euo pipefail
+
+          INDEX_URL="${SEARCH_API_BASE}/v1/index"
+          SITEMAP_URL="${DOC_SITE_BASE_URL}/sitemap.xml"
+
+          AUTH_HEADERS=()
+          if [ -n "${DOCS_SEARCH_INGEST_API_KEY}" ]; then
+            AUTH_HEADERS+=(-H "x-api-key: ${DOCS_SEARCH_INGEST_API_KEY}")
+          fi
+          if [ -n "${DOCS_SEARCH_INGEST_API_KEY_ID}" ]; then
+            AUTH_HEADERS+=(-H "x-api-key-id: ${DOCS_SEARCH_INGEST_API_KEY_ID}")
+          fi
+
+          echo "Triggering search indexing for ${DOC_CATALOG_SOURCE_ID}"
+          echo "Sitemap: ${SITEMAP_URL}"
+
+          HTTP_CODE=$(curl -sS -o /tmp/search-index-response.json -w "%{http_code}" \
+            -X POST "${INDEX_URL}" \
+            -H "Content-Type: application/json" \
+            "${AUTH_HEADERS[@]}" \
+            -d "{\"source_id\":\"${DOC_CATALOG_SOURCE_ID}\",\"sitemap_url\":\"${SITEMAP_URL}\"}")
+
+          cat /tmp/search-index-response.json
+
+          if [ "${HTTP_CODE}" -lt 200 ] || [ "${HTTP_CODE}" -ge 300 ]; then
+            echo "Indexing request failed with HTTP ${HTTP_CODE}"
+            exit 1
+          fi
