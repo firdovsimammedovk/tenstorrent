@@ -67,7 +67,7 @@
       return;
     }
 
-    const url = `${apiBase.replace(/\/+$/, "")}/v1/search?q=${encodeURIComponent(query)}&source_id=${encodeURIComponent(sourceId)}`;
+    const url = `${apiBase.replace(/\/+$/, "")}/v1/search?q=${encodeURIComponent(query)}&source=${encodeURIComponent(sourceId)}`;
 
     fetch(url, { method: "GET" })
       .then((response) => {
