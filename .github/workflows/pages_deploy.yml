@@ -14,6 +14,7 @@ jobs:
       SEARCH_API_BASE: https://csl860x2oj.execute-api.us-east-2.amazonaws.com/prod
       DOC_CATALOG_SOURCE_ID: docs-tenstorrent
       DOC_SITE_BASE_URL: https://firdovsimammedovk.github.io/tenstorrent
+      DOCS_ID_NAMESPACE: tenstorrent
       DOCS_SEARCH_INGEST_API_KEY: ${{ secrets.DOCS_SEARCH_INGEST_API_KEY_DOCS_TENSTORRENT }}
 
     steps:
