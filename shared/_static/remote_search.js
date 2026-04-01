@@ -74,19 +74,8 @@
     }
   }
 
-  function getSearchResultsUrl(query, apiBase, sourceId, size) {
-    const limit = Number.isFinite(size) ? `&size=${size}` : "";
-    return `${apiBase.replace(/\/+$/, "")}/v1/search?q=${encodeURIComponent(query)}&source=${encodeURIComponent(sourceId)}${limit}`;
-  }
-
-  function fetchSearchHits(query, apiBase, sourceId, size) {
-    const url = getSearchResultsUrl(query, apiBase, sourceId, size);
-    return fetch(url, { method: "GET" }).then((response) => {
-      if (!response.ok) {
-        throw new Error(`Remote search request failed (${response.status}).`);
-      }
-      return response.json();
-    });
+  function getSearchResultsUrl(query, apiBase, sourceId) {
+    return `${apiBase.replace(/\/+$/, "")}/v1/search?q=${encodeURIComponent(query)}&source=${encodeURIComponent(sourceId)}`;
   }
 
   function getHitDisplay(hit, siteBaseUrl) {
@@ -129,7 +118,13 @@
       return;
     }
 
-    fetchSearchHits(query, apiBase, sourceId)
+    fetch(getSearchResultsUrl(query, apiBase, sourceId), { method: "GET" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Remote search request failed (${response.status}).`);
+        }
+        return response.json();
+      })
       .then((payload) => {
         const hits = Array.isArray(payload?.hits) ? payload.hits : [];
         const total = payload?.total?.value ?? hits.length;
@@ -158,112 +153,7 @@
       });
   }
 
-  function initLiveSearch() {
-    const form = document.querySelector("#rtd-search-form");
-    const input = form?.querySelector('input[name="q"]');
-    const { apiBase, sourceId, siteBaseUrl } = getConfig();
-    if (!form || !input) {
-      return;
-    }
-
-    const panel = document.createElement("div");
-    panel.className = "remote-search-live-panel";
-    panel.hidden = true;
-    form.appendChild(panel);
-
-    let currentToken = 0;
-    let debounceTimer = null;
-
-    function hidePanel() {
-      panel.hidden = true;
-      panel.innerHTML = "";
-    }
-
-    function renderPanelLoading(query) {
-      const safeQuery = escapeHtml(query);
-      panel.innerHTML = `<div class="remote-search-live-status">Searching for <strong>${safeQuery}</strong>...</div>`;
-      panel.hidden = false;
-    }
-
-    function renderPanelResults(query, hits, total) {
-      const safeQuery = escapeHtml(query);
-      const items = hits
-        .map((hit) => {
-          const { href, title, pathLabel } = getHitDisplay(hit, siteBaseUrl);
-          return `<li><a href="${href}">${title}</a><div class="context">${pathLabel}</div></li>`;
-        })
-        .join("");
-      const viewAllUrl = getViewAllUrl(siteBaseUrl, query).replace(/"/g, "&quot;");
-      panel.innerHTML = `
-        <div class="remote-search-live-status">Top ${hits.length} result(s) for <strong>${safeQuery}</strong></div>
-        <ul class="remote-search-live-results">${items || "<li class=\"remote-search-live-empty\">No matches found.</li>"}</ul>
-        <a class="remote-search-live-view-all" href="${viewAllUrl}">View All (${total})</a>
-      `;
-      panel.hidden = false;
-    }
-
-    function renderPanelError(query, message) {
-      const safeQuery = escapeHtml(query);
-      const viewAllUrl = getViewAllUrl(siteBaseUrl, query).replace(/"/g, "&quot;");
-      panel.innerHTML = `
-        <div class="remote-search-live-status">Could not load live results for <strong>${safeQuery}</strong>.</div>
-        <div class="remote-search-live-error">${escapeHtml(message)}</div>
-        <a class="remote-search-live-view-all" href="${viewAllUrl}">View All</a>
-      `;
-      panel.hidden = false;
-    }
-
-    function runSearch() {
-      const query = input.value.trim();
-      if (query.length < 2) {
-        hidePanel();
-        return;
-      }
-
-      currentToken += 1;
-      const token = currentToken;
-      renderPanelLoading(query);
-      fetchSearchHits(query, apiBase, sourceId, 3)
-        .then((payload) => {
-          if (token !== currentToken) {
-            return;
-          }
-          const hits = Array.isArray(payload?.hits) ? payload.hits.slice(0, 3) : [];
-          const total = payload?.total?.value ?? hits.length;
-          renderPanelResults(query, hits, total);
-        })
-        .catch((error) => {
-          if (token !== currentToken) {
-            return;
-          }
-          renderPanelError(query, error.message);
-        });
-    }
-
-    function scheduleSearch() {
-      if (debounceTimer) {
-        window.clearTimeout(debounceTimer);
-      }
-      debounceTimer = window.setTimeout(runSearch, 220);
-    }
-
-    input.addEventListener("input", scheduleSearch);
-    input.addEventListener("focus", scheduleSearch);
-    input.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        hidePanel();
-      }
-    });
-
-    document.addEventListener("click", (event) => {
-      if (!form.contains(event.target)) {
-        hidePanel();
-      }
-    });
-  }
-
   document.addEventListener("DOMContentLoaded", () => {
     renderRemoteSearch();
-    initLiveSearch();
   });
 })();
