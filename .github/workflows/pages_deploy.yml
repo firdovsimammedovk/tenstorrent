@@ -1,0 +1,64 @@
+name: Build and Deploy Sphinx Documentation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the wheel
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y pandoc
+          sudo apt install software-properties-common build-essential python3.12-venv libhwloc-dev graphviz
+      - name: Install dependencies
+        run: |
+          python3 -m venv .docs-env
+          source .docs-env/bin/activate
+          pip install -r requirements.txt
+
+      - name: Fetch latest versions from GitHub releases
+        run: |
+          # Fetch latest tt-kmd version
+          KMD_VERSION=$(curl -s https://api.github.com/repos/tenstorrent/tt-kmd/releases/latest | jq -r '.tag_name' | sed 's/^ttkmd-//')
+          echo "Latest tt-kmd version: $KMD_VERSION"
+          echo "$KMD_VERSION" > syseng/kmd.version
+
+          # Fetch latest tt-system-firmware version
+          FW_VERSION=$(curl -s https://api.github.com/repos/tenstorrent/tt-system-firmware/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+          echo "Latest tt-system-firmware version: $FW_VERSION"
+          echo "$FW_VERSION" > syseng/firmware.version
+
+          # Fetch latest tt-system-tools version
+          SYS_TOOLS_VERSION=$(curl -s https://api.github.com/repos/tenstorrent/tt-system-tools/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+          echo "Latest tt-system-tools version: $SYS_TOOLS_VERSION"
+          echo "$SYS_TOOLS_VERSION" > syseng/sys_tools.version
+
+      - name: Build documentation
+        run: |
+          source .docs-env/bin/activate
+          python build_docs.py
+      - name: Make root index.html
+        run: |
+          touch output/index.html
+          echo -n "docs.tenstorrent.com" > output/CNAME
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output/
+          force_orphan: true
