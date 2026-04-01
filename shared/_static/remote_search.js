@@ -40,6 +40,40 @@
     }
   }
 
+  function escapeHtml(value) {
+    return String(value).replace(/[<>&"]/g, (char) => {
+      const table = { "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" };
+      return table[char] || char;
+    });
+  }
+
+  function cleanTitle(title) {
+    const raw = (title || "").trim();
+    if (!raw) {
+      return "";
+    }
+    return raw.replace(/\s+[—-]\s+.*documentation$/i, "").trim() || raw;
+  }
+
+  function getRelativePathLabel(url, siteBaseUrl) {
+    try {
+      const normalized = new URL(url, siteBaseUrl);
+      const siteBase = new URL(siteBaseUrl);
+      let path = normalized.pathname;
+      const basePath = siteBase.pathname.replace(/\/+$/, "");
+      if (basePath && path.startsWith(basePath)) {
+        path = path.slice(basePath.length);
+      }
+      path = path.replace(/^\/+/, "");
+      if (!path) {
+        return "Home";
+      }
+      return decodeURIComponent(path);
+    } catch (_error) {
+      return "";
+    }
+  }
+
   function renderRemoteSearch() {
     if (!window.location.pathname.endsWith("/search.html")) {
       return;
@@ -54,10 +88,7 @@
       return;
     }
 
-    const escapedQuery = query.replace(/[<>&"]/g, (char) => {
-      const table = { "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" };
-      return table[char] || char;
-    });
+    const escapedQuery = escapeHtml(query);
 
     resultsRoot.innerHTML = query
       ? `<p>Searching remotely for <strong>${escapedQuery}</strong>...</p>`
@@ -87,18 +118,24 @@
 
         const list = hits
           .map((hit) => {
-            const title = (hit?.title || hit?.url || "Untitled result").replace(/[<>&"]/g, (char) => {
-              const table = { "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" };
-              return table[char] || char;
-            });
             const rawUrl = hit?.url || "#";
-            const href = normalizeUrl(rawUrl, siteBaseUrl).replace(/"/g, "&quot;");
-            const source = hit?.source ? ` <small>(${hit.source})</small>` : "";
-            return `<li><a href="${href}">${title}</a>${source}</li>`;
+            const normalizedUrl = normalizeUrl(rawUrl, siteBaseUrl);
+            const href = normalizedUrl.replace(/"/g, "&quot;");
+            const preferredTitle = cleanTitle(hit?.title);
+            const fallbackTitle = getRelativePathLabel(normalizedUrl, siteBaseUrl) || "Untitled result";
+            const title = escapeHtml(preferredTitle || fallbackTitle);
+            const pathLabel = escapeHtml(getRelativePathLabel(normalizedUrl, siteBaseUrl));
+            const source = hit?.source ? `<span class="remote-search-source">${escapeHtml(hit.source)}</span>` : "";
+            return `<li><a href="${href}">${title}</a><div class="context">${pathLabel}${source}</div></li>`;
           })
           .join("");
 
-        resultsRoot.innerHTML = `<p>Found <strong>${total}</strong> result(s).</p><ul>${list}</ul>`;
+        resultsRoot.innerHTML = `
+          <p class="search-summary">Found <strong>${total}</strong> result(s) for <strong>${escapedQuery}</strong>.</p>
+          <ul class="search remote-search-results">
+            ${list}
+          </ul>
+        `;
       })
       .catch((error) => {
         resultsRoot.innerHTML = `<p>Remote search is unavailable right now. ${error.message}</p>`;
