@@ -67,7 +67,12 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./output/
           force_orphan: true
+      - name: Skip indexing when API key is missing
+        if: ${{ env.DOCS_SEARCH_INGEST_API_KEY == '' }}
+        run: |
+          echo "::warning::Skipping remote search indexing because DOCS_SEARCH_INGEST_API_KEY_DOCS_TENSTORRENT is not set."
       - name: Trigger remote search indexing
+        if: ${{ env.DOCS_SEARCH_INGEST_API_KEY != '' }}
         run: |
           source .docs-env/bin/activate
           python scripts/index_remote_search.py

@@ -125,6 +125,14 @@ def main() -> int:
         if status < 200 or status >= 300:
             print(f"Indexing failed: HTTP {status}", file=sys.stderr)
             print(body, file=sys.stderr)
+            if status == 403:
+                print(
+                    (
+                        "Hint: DOCS_SEARCH_INGEST_API_KEY must be the API key VALUE, "
+                        "not the API key ID (for example, not '427rdpxpb6')."
+                    ),
+                    file=sys.stderr,
+                )
             return 1
         indexed += len(batch)
         print(f"Indexed {indexed}/{len(docs)}")
