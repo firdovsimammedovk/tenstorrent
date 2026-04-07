@@ -13,4 +13,4 @@ TT-Forge offers three different frontend compilers, making it easy to work with 
    
     TT-Torch <https://docs.tenstorrent.com/tt-torch/>
     TT-Forge-ONNX <https://docs.tenstorrent.com/tt-forge-onnx/>
-    TT-XLA <https://docs.tenstorrent.com/tt-xla/>
+    TT-XLA <https://firdovsimammedovk.github.io/tt-xla/>
