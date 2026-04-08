@@ -25,7 +25,7 @@ extensions = ['myst_parser',
               'sphinx_sitemap',
               ]
 
-html_baseurl = "https://docs.tenstorrent.com/"
+html_baseurl = "https://firdovsimammedovk.github.io/tenstorrent/"
 sitemap_filename = "sitemap_core.xml"
 sitemap_locales = [None]
 sitemap_url_scheme = "{link}"
@@ -61,7 +61,10 @@ html_last_updated_fmt = "%b %d, %Y"
 
 html_context = {
     "versions": None, # Do not render versions
-    "logo_link_url": os.environ.get("homepage")
+    "logo_link_url": os.environ.get(
+        "homepage",
+        "https://firdovsimammedovk.github.io/tenstorrent/",
+    ),
 }
 
 def setup(app):

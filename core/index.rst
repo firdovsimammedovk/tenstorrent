@@ -29,6 +29,7 @@ Tenstorrent
 
    forge/index
    TT-XLA <https://firdovsimammedovk.github.io/tt-xla/>
+   TT-NPE <https://firdovsimammedovk.github.io/tt-npe/>
    TT-Metalium <https://firdovsimammedovk.github.io/tt-metal/tt-metalium/>
    TT-NN <https://firdovsimammedovk.github.io/tt-metal/ttnn/>
    Manual Software Installation <getting-started/manual-software-install>
@@ -46,4 +47,4 @@ Tenstorrent
    :caption: Legal
    :maxdepth: 2
 
-   Bounty Program Terms <https://docs.tenstorrent.com/bounty_terms.html>
+   Bounty Program Terms <https://firdovsimammedovk.github.io/tenstorrent/bounty_terms.html>

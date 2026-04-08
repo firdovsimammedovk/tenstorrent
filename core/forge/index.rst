@@ -11,6 +11,7 @@ TT-Forge is the name of Tenstorrent's end-to-end compiler stack. It consists of:
 
    TT-Blacksmith <https://firdovsimammedovk.github.io/tt-blacksmith/>
    TT-XLA <https://firdovsimammedovk.github.io/tt-xla/>
+   TT-NPE <https://firdovsimammedovk.github.io/tt-npe/>
    forge-frontend-compiler/index
    forge-backend-compiler/index
    tools/index

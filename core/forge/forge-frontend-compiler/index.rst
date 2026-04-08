@@ -11,6 +11,6 @@ TT-Forge offers three different frontend compilers, making it easy to work with 
    :maxdepth: 2
 
    
-    TT-Torch <https://docs.tenstorrent.com/tt-torch/>
-    TT-Forge-ONNX <https://docs.tenstorrent.com/tt-forge-onnx/>
+    TT-Torch <https://firdovsimammedovk.github.io/tenstorrent/tt-torch/>
+    TT-Forge-ONNX <https://firdovsimammedovk.github.io/tenstorrent/tt-forge-onnx/>
     TT-XLA <https://firdovsimammedovk.github.io/tt-xla/>

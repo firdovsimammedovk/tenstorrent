@@ -7,4 +7,4 @@ TT-MLIR is the backend compiler for tt-forge. It takes a Tenstorrent-specific gr
    :maxdepth: 2
 
    
-    TT-MLIR <https://docs.tenstorrent.com/tt-mlir/>
+    TT-MLIR <https://firdovsimammedovk.github.io/tenstorrent/tt-mlir/>

@@ -7,4 +7,4 @@ TT-NPE is a tool that can be used to validate compiled ops, simulate op executio
    :maxdepth: 2
 
    
-    TT-NPE <https://docs.tenstorrent.com/tt-npe/>
+    TT-NPE <https://firdovsimammedovk.github.io/tt-npe/>
