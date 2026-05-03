@@ -27,16 +27,17 @@
         document.head.appendChild(link);
     }
 
-    function loadDeferredScript(name) {
+    /* async=false so order is preserved; kapa/runllm use readyState so they run if injected after DOMContentLoaded */
+    function loadScript(name) {
         var s = document.createElement("script");
-        s.defer = true;
         s.src = base + name;
+        s.async = false;
         document.head.appendChild(s);
     }
 
     if (mode === "kapa") {
         loadCss("kapa.css");
-        loadDeferredScript("kapa.js");
+        loadScript("kapa.js");
         return;
     }
 
@@ -54,7 +55,7 @@
             }
             document.head.appendChild(p);
         }
-        loadDeferredScript("runllm.js");
+        loadScript("runllm.js");
         return;
     }
 })();
