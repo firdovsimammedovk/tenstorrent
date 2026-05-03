@@ -35,11 +35,13 @@
 
 {%- block extrahead %}
   {{ super() }}
-  <link rel="preconnect" href="https://www.google.com" />
-  <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="{{ pathto('_static/kapa.css', 1) }}" />
-  <script defer src="{{ pathto('_static/kapa.js', 1) }}"></script>
-  <script defer src="{{ pathto('_static/runllm.js', 1) }}"></script>
+  {# docs_ai=kapa | docs_ai=runllm — only one widget loads (see ai_widget_loader.js). #}
+  <script>
+    window.TT_DOCS_AI_WIDGET = {
+      staticBase: "{{ pathto('_static/ai_widget_loader.js', 1)|replace('ai_widget_loader.js', '') }}"
+    };
+  </script>
+  <script defer src="{{ pathto('_static/ai_widget_loader.js', 1) }}"></script>
   <script>
     window.TT_DOCS_REMOTE_SEARCH = {
       apiBase: "https://csl860x2oj.execute-api.us-east-2.amazonaws.com/prod",
