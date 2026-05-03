@@ -8,7 +8,7 @@ Tenstorrent
 
 .. toctree::
    :hidden:
-   :caption: Software Guides
+   :caption: Software
 
    getting-started/README
    getting-started/model-demos
@@ -17,7 +17,7 @@ Tenstorrent
 
 .. toctree::
    :hidden:
-   :caption: Hardware Guides
+   :caption: Hardware
 
    aibs/index
    systems/index
