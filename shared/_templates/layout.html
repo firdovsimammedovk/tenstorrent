@@ -35,6 +35,8 @@
 
 {%- block extrahead %}
   {{ super() }}
+  <link rel="stylesheet" href="{{ pathto('_static/kapa.css', 1) }}" />
+  <script defer src="{{ pathto('_static/kapa.js', 1) }}"></script>
   <script>
     window.TT_DOCS_REMOTE_SEARCH = {
       apiBase: "https://csl860x2oj.execute-api.us-east-2.amazonaws.com/prod",
