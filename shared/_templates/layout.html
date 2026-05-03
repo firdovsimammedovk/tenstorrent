@@ -35,6 +35,8 @@
 
 {%- block extrahead %}
   {{ super() }}
+  <link rel="preconnect" href="https://www.google.com" />
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin />
   <link rel="stylesheet" href="{{ pathto('_static/kapa.css', 1) }}" />
   <script defer src="{{ pathto('_static/kapa.js', 1) }}"></script>
   <script defer src="{{ pathto('_static/runllm.js', 1) }}"></script>

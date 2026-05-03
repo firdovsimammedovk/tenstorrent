@@ -1,7 +1,11 @@
 /**
  * RunLLM search/chat widget (official CDN).
- * Assistant / domain allowlisting is configured in the RunLLM dashboard.
- * REST API (streaming chat, history): https://api.runllm.com — see RunLLM docs.
+ * If chat fails with "Recaptcha validation failed" / error-codes "browser-error":
+ *  - Test on the real HTTPS URL (e.g. GitHub Pages), not file:// or an unregistered host.
+ *  - Ask RunLLM to allowlist your exact origin for their reCAPTCHA key; ad blockers
+ *    must allow www.google.com / www.gstatic.com (reCAPTCHA).
+ *  - Try DevTools → Application → Local Storage → remove keys starting with runllm-.
+ * REST: https://api.runllm.com
  */
 document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("runllm-widget-script")) {
