@@ -47,6 +47,16 @@
         apiKey: apiKey,
         organizationDisplayName: cfg.organizationDisplayName || "Tenstorrent",
         primaryBrandColor: cfg.primaryBrandColor || "#5164e0",
+        theme: {
+          styles: [
+            {
+              key: "tt-inkeep-z-index",
+              type: "style",
+              value:
+                ".ikp-chat-button__container{z-index:2147483647 !important;}",
+            },
+          ],
+        },
       },
       aiChatSettings: {
         aiAssistantName: cfg.aiAssistantName || "Docs Assistant",
