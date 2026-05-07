@@ -35,10 +35,25 @@
 
 {%- block extrahead %}
   {{ super() }}
-  {# docs_ai=kapa | docs_ai=runllm — only one widget loads (see ai_widget_loader.js). #}
+  {# docs_ai=inkeep|kapa|runllm — only one widget loads (see ai_widget_loader.js). #}
   <script>
     window.TT_DOCS_AI_WIDGET = {
-      staticBase: "{{ pathto('_static/ai_widget_loader.js', 1)|replace('ai_widget_loader.js', '') }}"
+      staticBase: "{{ pathto('_static/ai_widget_loader.js', 1)|replace('ai_widget_loader.js', '') }}",
+      defaultMode: "inkeep",
+    };
+  </script>
+  <script>
+    // Public settings for InKeep widget (safe to expose on public docs).
+    // Fill `apiKey` from InKeep portal (Public API key).
+    window.TT_DOCS_INKEEP = {
+      apiKey: "c0f841dfa7ba333e078215d423fb15ba2b5610ab3f17d403",
+      organizationDisplayName: "Tenstorrent",
+      primaryBrandColor: "#5164e0",
+      aiAssistantName: "Tenstorrent Docs",
+      label: "Ask AI",
+      defaultView: "chat",
+      canToggleView: true,
+      // embedSrc: "https://cdn.jsdelivr.net/npm/@inkeep/cxkit-js@0.5/dist/embed.js",
     };
   </script>
   <script defer src="{{ pathto('_static/ai_widget_loader.js', 1) }}"></script>

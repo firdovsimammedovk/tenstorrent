@@ -2,6 +2,7 @@
  * Loads exactly one docs assistant widget based on URL query:
  *   ?docs_ai=kapa   — Kapa only (no RunLLM scripts)
  *   ?docs_ai=runllm — RunLLM only (no Kapa scripts)
+ *   ?docs_ai=inkeep — Inkeep only
  * Omit or use another value → neither widget loads.
  *
  * Aliases for the same parameter name: tt_ai (same values).
@@ -15,9 +16,10 @@
     )
         .trim()
         .toLowerCase();
-    var mode = raw === "kapa" || raw === "runllm" ? raw : "";
-
     var cfg = window.TT_DOCS_AI_WIDGET || {};
+    var defaultMode = (cfg.defaultMode || "").trim().toLowerCase();
+    var mode = raw === "kapa" || raw === "runllm" || raw === "inkeep" ? raw : (defaultMode === "kapa" || defaultMode === "runllm" || defaultMode === "inkeep" ? defaultMode : "");
+
     var base = (cfg.staticBase || "_static/").replace(/\/?$/, "/");
 
     function loadCss(name) {
@@ -56,6 +58,11 @@
             document.head.appendChild(p);
         }
         loadScript("runllm.js");
+        return;
+    }
+
+    if (mode === "inkeep") {
+        loadScript("inkeep.js");
         return;
     }
 })();
