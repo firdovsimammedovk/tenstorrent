@@ -224,6 +224,14 @@ i {
   width: 100%;
 }
 
+/* Core hub: sidebar title block is empty (nav in top bar); keep TOC flush */
+html.tt-docs-hub .wy-side-nav-search {
+  padding-top: 0.35rem;
+  padding-bottom: 0.25rem;
+  min-height: 0;
+  gap: 0;
+}
+
 .wy-menu-vertical {
   padding-bottom: 2rem;
   /* add space to accommodate version bar */

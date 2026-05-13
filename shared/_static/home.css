@@ -55,6 +55,11 @@ body.tt-home-body .wy-breadcrumbs-aside {
   display: none !important;
 }
 
+/* Home only: hide prev/next footer (e.g. “Next”) */
+body.tt-home-body .rst-footer-buttons {
+  display: none !important;
+}
+
 /* Full-bleed home (desktop): hide RTD sidebar, edge-to-edge content */
 @media screen and (min-width: 769px) {
   body.tt-home-body .wy-nav-side {
