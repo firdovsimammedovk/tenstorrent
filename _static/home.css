@@ -1,0 +1,405 @@
+/*
+  Homepage landing (core/index.rst). Primary surface: --tt-home-bg (#092221).
+*/
+
+#tenstorrent > h1 {
+  display: none !important;
+}
+
+.tt-home {
+  --tt-home-bg: #092221;
+  --tt-home-bg-elevated: #0d2f2c;
+  --tt-home-accent: #6ecfff;
+  --tt-home-cta: #2563eb;
+  --tt-home-cta-hover: #1d4ed8;
+  --tt-home-text: #f4f7f6;
+  --tt-home-text-muted: rgba(244, 247, 246, 0.82);
+  --tt-home-radius: 12px;
+  --tt-home-radius-sm: 8px;
+  font-family: var(--font-main, "Degular", system-ui, sans-serif);
+  margin: -1.5rem -1.5rem 0;
+  width: calc(100% + 3rem);
+  max-width: none;
+}
+
+@media (min-width: 800px) {
+  .tt-home {
+    margin: -1.5rem -3rem 0;
+    width: calc(100% + 6rem);
+  }
+}
+
+/* Home only: no breadcrumb row, no “View page source” (sphinx-rtd-theme) */
+body.tt-home-body .rst-content > div:has(> ul.wy-breadcrumbs) {
+  display: none !important;
+}
+
+body.tt-home-body .rst-content > ul.wy-breadcrumbs {
+  display: none !important;
+}
+
+body.tt-home-body .rst-content > ul.wy-breadcrumbs + hr {
+  display: none !important;
+}
+
+body.tt-home-body .rst-content > div:has(> ul.wy-breadcrumbs) + hr {
+  display: none !important;
+}
+
+body.tt-home-body .wy-nav-content [role="navigation"][aria-label*="readcrumb"] {
+  display: none !important;
+}
+
+body.tt-home-body li.wy-breadcrumbs-aside,
+body.tt-home-body .wy-breadcrumbs-aside {
+  display: none !important;
+}
+
+/* Home only: hide prev/next footer (e.g. “Next”) */
+body.tt-home-body .rst-footer-buttons {
+  display: none !important;
+}
+
+/* Full-bleed home (desktop): hide RTD sidebar, edge-to-edge content */
+@media screen and (min-width: 769px) {
+  body.tt-home-body .wy-nav-side {
+    display: none;
+  }
+
+  body.tt-home-body .wy-nav-content-wrap {
+    margin-left: 0 !important;
+  }
+
+  body.tt-home-body .wy-nav-content {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  body.tt-home-body .rst-content {
+    padding: 0 !important;
+  }
+
+  body.tt-home-body .wy-nav-top {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body.tt-home-body .wy-nav-top {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: var(--tt-home-bg, #092221);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  body.tt-home-body .wy-nav-top a,
+  body.tt-home-body .wy-nav-top i {
+    color: #fff !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ——— Hero ——— */
+.tt-home-hero {
+  background: var(--tt-home-bg);
+  color: var(--tt-home-text);
+  padding: 2.5rem 1.25rem 3.5rem;
+}
+
+.tt-home-hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .tt-home-hero-inner {
+    grid-template-columns: 1fr 320px;
+    gap: 3rem;
+    align-items: stretch;
+  }
+}
+
+.tt-home-hero-title {
+  font-family: var(--font-display, "DegularDisplay", system-ui, sans-serif);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 1rem;
+  color: #fff;
+}
+
+.tt-home-hero-lead {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--tt-home-text-muted);
+  margin: 0 0 1.5rem;
+  max-width: 40rem;
+}
+
+.tt-home-hero-lead a {
+  color: var(--tt-home-accent) !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tt-home-hero-lead a:hover {
+  color: #9fdcff !important;
+}
+
+.tt-home-search-hero input {
+  width: 100%;
+  max-width: 36rem;
+  box-sizing: border-box;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--tt-home-radius-sm);
+  background: #fff;
+  color: #1a1a1a;
+  outline: none;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+.tt-home-search-hero input::placeholder {
+  color: #6b7280;
+}
+
+.tt-home-search-hero input:focus {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35), 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+.tt-home-kicker {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tt-home-accent);
+  margin: 0 0 0.75rem;
+}
+
+.tt-home-hero-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tt-home-qs-card {
+  display: block;
+  background: #fff;
+  color: #1a1a1a !important;
+  text-decoration: none !important;
+  border-radius: var(--tt-home-radius);
+  padding: 1.1rem 1.15rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tt-home-qs-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  color: #000 !important;
+}
+
+.tt-home-qs-card-title {
+  font-family: var(--font-main, inherit);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+  color: inherit;
+}
+
+.tt-home-qs-card-text {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: #4b5563;
+}
+
+/* ——— Light sections ——— */
+.tt-home-light {
+  background: #fff;
+  color: #1a1a1a;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+.tt-home-section {
+  max-width: 1280px;
+  margin: 0 auto 3rem;
+}
+
+.tt-home-section:last-child {
+  margin-bottom: 0;
+}
+
+.tt-home-section-title {
+  font-family: var(--font-display, "DegularDisplay", system-ui, sans-serif);
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin: 0 0 1.25rem;
+  color: #111;
+}
+
+.tt-home-card-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.tt-home-card-grid--hardware {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .tt-home-card-grid--hardware {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .tt-home-card-grid--hardware {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+.tt-home-hw-card {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--tt-home-radius);
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background: #fafafa;
+}
+
+@media (max-width: 520px) {
+  .tt-home-hw-card {
+    flex-direction: column;
+  }
+}
+
+.tt-home-hw-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 20px rgba(9, 34, 33, 0.08);
+}
+
+.tt-home-hw-card-media {
+  flex: 0 0 auto;
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tt-home-hw-card-media img {
+  max-width: 100%;
+  height: auto;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.tt-home-hw-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.tt-home-hw-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+  color: #111 !important;
+}
+
+.tt-home-hw-card-desc {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #4b5563 !important;
+}
+
+.tt-home-card-grid--small {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 720px) {
+  .tt-home-card-grid--small {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.tt-home-mini-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  padding: 1rem 0.75rem;
+  border-radius: var(--tt-home-radius);
+  background: #edeff9;
+  text-decoration: none !important;
+  color: #202020 !important;
+  transition: background 0.15s ease;
+}
+
+.tt-home-mini-card:hover {
+  background: #dce1f5;
+  color: #111 !important;
+}
+
+.tt-home-mini-card img {
+  width: 56%;
+  max-width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+.tt-home-mini-card h3 {
+  font-family: var(--font-main, inherit);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: inherit !important;
+}
+
+.tt-home-mini-card--discord img {
+  width: 40%;
+}
+
+.tt-home-mini-card--legacy img {
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.tt-home-mini-card--text {
+  justify-content: center;
+  min-height: 140px;
+}
+
+.tt-home-mini-card-icon {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-accent, #5164e0);
+}
+
+.tt-home-section--legacy .tt-home-mini-card {
+  background: #f3f4f6;
+}
