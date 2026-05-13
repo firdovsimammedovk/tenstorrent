@@ -33,6 +33,13 @@
 
 {%- endblock %}
 
+{%- block extrabody %}
+  {{ super() }}
+  {%- if show_tt_docs_topbar | default(false) %}
+  {%- include "docs_topbar.html" %}
+  {%- endif %}
+{%- endblock %}
+
 {%- block extrahead %}
   {{ super() }}
   {# docs_ai=inkeep|kapa|runllm — only one widget loads (see ai_widget_loader.js). #}

@@ -1,348 +1,141 @@
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tenstorrent Documentation</title>
-  <style>
-    @font-face {
-      font-family: "Degular";
-      src: url("./fonts/DegularText-Medium.woff") format("woff"),
-        url("./fonts/DegularText-Medium.woff2") format("woff2");
-    }
-    @font-face {
-      font-family: "DegularDisplay";
-      src: url("./fonts/DegularDisplay-Light.woff") format("woff"),
-        url("./fonts/DegularDisplay-Light.woff2") format("woff2");
-    }
-
-    body {
-      font-family: "Degular", sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f8f9fa;
-      color: #333;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .hx {
-      font-size: 48px;
-      line-height: 90%;
-      font-family: "DegularDisplay", sans-serif;
-    }
-
-    .section {
-      display: flex;
-      flex-direction: column;
-      border-bottom: 1px solid #ccc;
-      gap: 24px;
-      padding: 36px 0 24px;
-    }
-
-    .section:last-child {
-      margin-bottom: 36px;
-    }
-
-    .section h2 {
-      margin: 0 !important;
-      margin-bottom: 0 !important;
-      line-height: 90%;
-    }
-
-    .intro {
-      width: 100%;
-    }
-
-    .link-button {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .link-button > svg {
-      width: 14px;
-      height: 14px;
-      display: inline-block;
-      stroke: var(--color-accent);
-    }
-
-    .link-button:visited > svg {
-      stroke: var(--color-dark-purple);
-    }
-
-    @media (min-width: 1024px) {
-      .intro {
-        width: 70%;
-      }
-    }
-
-    .grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-    }
-
-    .card {
-      display: flex;
-      flex-direction: column;
-      background-color: #edeff9;
-      border-radius: 10px;
-      overflow: hidden;
-      width: 100%;
-      gap: 16px;
-      padding: 18px;
-      transition: background-color 100ms ease-in;
-    }
-
-    .card:hover {
-      background-color: #d7dbeb;
-    }
-
-    .card * {
-      color: #202020 !important;
-    }
-
-    .small-card {
-      width: calc(50% - 10px);
-      padding: 12px;
-      gap: 8px;
-    }
-
-    .card img {
-      width: 100%;
-      height: auto;
-    }
-
-    .card h3 {
-      font-family: "Degular", sans-serif;
-      margin: 0;
-      margin-bottom: 1rem;
-    }
-
-    .small-card h4 {
-      font-weight: normal;
-      font-size: 16px;
-      margin-bottom: 0.5rem;
-    }
-
-    .legacy-card {
-      justify-content: flex-end;
-    }
-
-    .legacy-card img {
-      height: 120px;
-      object-fit: contain;
-      margin-bottom: auto;
-    }
-
-    @media (min-width: 769px) {
-      .legacy-card img {
-        height: 150px;
-      }
-    }
-
-    .discord-card img {
-      width: 50%;
-      margin: 0 auto;
-    }
-
-    @media (min-width: 769px) {
-      .hx {
-        font-size: 56px;
-      }
-
-      .card {
-        width: calc(50% - 9px);
-      }
-
-      .small-card {
-        width: calc(33% - 10.2px);
-        gap: 16px;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .hx {
-        font-size: 96px;
-      }
-    }
-
-    @media (min-width: 1280px) {
-      .card h3 {
-        font-size: 32px;
-      }
-
-      .small-card h4 {
-        font-size: 22px;
-      }
-    }
-
-    @media (min-width: 1536px) {
-      .hx {
-        font-size: 108px;
-      }
-    }
-
-    @media (min-width: 1920) {
-      .hx {
-        font-size: 144px;
-      }
-    }
-
-    /* Override tt-theme.css */
-    .document * h1,
-    .document * h2,
-    .document * h3,
-    .document * h4 {
-      /*
-        Remove horizontal overflow (so scrollbars don't appear on every header
-        element for users with "Show scroll bars" set to "Always" on macOS)
-      */
-      overflow: hidden;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1 class="hx">Tenstorrent<br />Documentation</h1>
-
-    <div class="section">
-      <h2>Quick Link: Software Setup</h2>
-      <div class="intro">
-        Welcome to Tenstorrent! This guide will walk you through installing the necessary open source software on your new Tenstorrent hardware, and running your first
-        “Hello World” program.
+<div class="tt-home">
+  <section class="tt-home-hero" aria-labelledby="tt-home-hero-title">
+    <div class="tt-home-hero-inner">
+      <div class="tt-home-hero-main">
+        <h2 id="tt-home-hero-title" class="tt-home-hero-title">Tenstorrent Documentation</h2>
+        <p class="tt-home-hero-lead">
+          Start building with Tenstorrent. Explore our
+          <a href="getting-started/README.html">Getting Started</a> guides, submit a
+          <a href="https://tenstorrent.atlassian.net/servicedesk/customer/portal/1" target="_blank" rel="noopener noreferrer">Support Ticket</a>,
+          or search the documentation.
+        </p>
+        <form class="tt-home-search-hero" action="search.html" method="get" role="search">
+          <label class="visually-hidden" for="tt-home-hero-search-q">Search documentation</label>
+          <input id="tt-home-hero-search-q" type="search" name="q" placeholder="Search documentation…" autocomplete="off" />
+        </form>
       </div>
-      <a class="link-button" href="getting-started/README.html">
-        <span>Software Setup</span>
-        <svg
-          width="17"
-          height="16"
-          viewbox="0 0 17 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          class=""
-          role="none"
-        >
-          <path d="M1 14.5L15.2929 1.79289" stroke-width="2" />
-          <path d="M5 1.5H15.5V12" stroke-width="2" />
-        </svg>
-      </a>
-    </div>
-
-    <div class="section">
-      <h2>Cards</h2>
-      <div class="grid">
-        <a href="aibs/blackhole" class="card">
-          <img src="_static/home/blackhole.png" alt="Blackhole™" />
-          <h3>Blackhole™</h3>
+      <aside class="tt-home-hero-aside" aria-label="Quick start">
+        <p class="tt-home-kicker">Quick start</p>
+        <a class="tt-home-qs-card" href="https://tenstorrent.atlassian.net/servicedesk/customer/portal/1" target="_blank" rel="noopener noreferrer">
+          <h3 class="tt-home-qs-card-title">Submit Support Ticket</h3>
+          <p class="tt-home-qs-card-text">Get help from our team for hardware, software, and account questions.</p>
         </a>
-        <a href="aibs/wormhole" class="card">
-          <img src="_static/home/wormhole.png" alt="Wormhole™" />
-          <h3>Wormhole™</h3>
+        <a class="tt-home-qs-card" href="getting-started/README.html">
+          <h3 class="tt-home-qs-card-title">Software Setup</h3>
+          <p class="tt-home-qs-card-text">Install open-source software on your hardware and run your first program.</p>
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <div class="tt-home-light">
+    <section class="tt-home-section" id="tt-home-hardware" aria-labelledby="tt-home-hw-heading">
+      <h2 id="tt-home-hw-heading" class="tt-home-section-title">Hardware</h2>
+      <div class="tt-home-card-grid tt-home-card-grid--hardware">
+        <a class="tt-home-hw-card" href="aibs/blackhole/index.html">
+          <div class="tt-home-hw-card-media">
+            <img src="_static/home/blackhole.png" alt="" loading="lazy" width="200" height="140" />
+          </div>
+          <div class="tt-home-hw-card-body">
+            <h3 class="tt-home-hw-card-title">Cards (Blackhole)</h3>
+            <p class="tt-home-hw-card-desc">Infinitely scalable and designed for high performance AI processing.</p>
+          </div>
+        </a>
+        <a class="tt-home-hw-card" href="aibs/wormhole/index.html">
+          <div class="tt-home-hw-card-media">
+            <img src="_static/home/wormhole.png" alt="" loading="lazy" width="200" height="140" />
+          </div>
+          <div class="tt-home-hw-card-body">
+            <h3 class="tt-home-hw-card-title">Cards (Wormhole)</h3>
+            <p class="tt-home-hw-card-desc">Flexible, scalable processors built with Tensix Cores™.</p>
+          </div>
+        </a>
+        <a class="tt-home-hw-card" href="systems/index.html">
+          <div class="tt-home-hw-card-media">
+            <img src="_static/home/tt-quietbox.png" alt="" loading="lazy" width="200" height="140" />
+          </div>
+          <div class="tt-home-hw-card-body">
+            <h3 class="tt-home-hw-card-title">TT-QuietBox™ (Blackhole)</h3>
+            <p class="tt-home-hw-card-desc">Dead quiet desktop AI.</p>
+          </div>
+        </a>
+        <a class="tt-home-hw-card" href="systems/t3000/index.html">
+          <div class="tt-home-hw-card-media">
+            <img src="_static/home/tt-loudbox.png" alt="" loading="lazy" width="200" height="140" />
+          </div>
+          <div class="tt-home-hw-card-body">
+            <h3 class="tt-home-hw-card-title">TT-LoudBox™</h3>
+            <p class="tt-home-hw-card-desc">High-density systems for data center and lab deployments.</p>
+          </div>
         </a>
       </div>
-    </div>
+    </section>
 
-    <div class="section">
-      <h2>Systems</h2>
-      <div class="grid">
-        <a href="systems/" class="card">
-          <img src="_static/home/tt-quietbox.png" alt="TT-QuietBox" />
-          <h3>TT-QuietBox</h3>
+    <section class="tt-home-section" aria-labelledby="tt-home-sw-heading">
+      <h2 id="tt-home-sw-heading" class="tt-home-section-title">Software</h2>
+      <div class="tt-home-card-grid tt-home-card-grid--small">
+        <a class="tt-home-mini-card" href="https://firdovsimammedovk.github.io/tt-metal/ttnn/" target="_blank" rel="noopener noreferrer">
+          <img src="_static/home/tt-nn.png" alt="" loading="lazy" />
+          <h3>TT-NN</h3>
         </a>
-        <a href="systems/t3000" class="card">
-          <img src="_static/home/tt-loudbox.png" alt="TT-LoudBox" />
-          <h3>TT-LoudBox</h3>
+        <a class="tt-home-mini-card" href="https://firdovsimammedovk.github.io/tt-metal/tt-metalium/" target="_blank" rel="noopener noreferrer">
+          <img src="_static/home/tt-metalium.png" alt="" loading="lazy" />
+          <h3>TT-Metalium™</h3>
+        </a>
+        <a class="tt-home-mini-card" href="https://firdovsimammedovk.github.io/tenstorrent/tt-mlir/" target="_blank" rel="noopener noreferrer">
+          <img src="_static/home/tt-mlir.png" alt="" loading="lazy" />
+          <h3>TT-MLIR</h3>
+        </a>
+        <a class="tt-home-mini-card tt-home-mini-card--text" href="forge/index.html">
+          <span class="tt-home-mini-card-icon" aria-hidden="true">→</span>
+          <h3>TT-Forge</h3>
         </a>
       </div>
-    </div>
+    </section>
 
-    <div class="section">
-      <h2>Software</h2>
-      <div class="grid">
-        <a
-          target="_blank"
-          href="https://firdovsimammedovk.github.io/tt-metal/latest/ttnn/index.html"
-          class="card small-card"
-        >
-          <img src="_static/home/tt-nn.png" alt="TT-NN" />
-          <h4>TT-NN</h4>
+    <section class="tt-home-section" aria-labelledby="tt-home-support-heading">
+      <h2 id="tt-home-support-heading" class="tt-home-section-title">Support</h2>
+      <div class="tt-home-card-grid tt-home-card-grid--small">
+        <a class="tt-home-mini-card" href="https://tenstorrent.com/faq" target="_blank" rel="noopener noreferrer">
+          <img src="_static/home/faq.png" alt="" loading="lazy" />
+          <h3>FAQ</h3>
         </a>
-        <a
-          target="_blank"
-          href="https://firdovsimammedovk.github.io/tt-metal/latest/tt-metalium/index.html"
-          class="card small-card"
-        >
-          <img src="_static/home/tt-metalium.png" alt="TT-Metalium™" />
-          <h4>TT-Metalium™</h4>
+        <a class="tt-home-mini-card" href="https://tenstorrent.atlassian.net/servicedesk/customer/portal/1" target="_blank" rel="noopener noreferrer">
+          <img src="_static/home/compliance.png" alt="" loading="lazy" />
+          <h3>Request Support</h3>
         </a>
-        <a
-          target="_blank"
-          href="https://firdovsimammedovk.github.io/tenstorrent/tt-mlir/"
-          class="card small-card"
-        >
-          <img src="_static/home/tt-mlir.png" alt="TT-MLIR" />
-          <h4>TT-MLIR</h4>
+        <a class="tt-home-mini-card" href="https://tenstorrent.com/contact" target="_blank" rel="noopener noreferrer">
+          <img src="_static/home/contact-us.png" alt="" loading="lazy" />
+          <h3>Contact Us</h3>
+        </a>
+        <a class="tt-home-mini-card tt-home-mini-card--discord" href="https://discord.com/invite/tenstorrent" target="_blank" rel="noopener noreferrer">
+          <img src="_static/home/discord.svg" alt="" loading="lazy" />
+          <h3>Discord</h3>
         </a>
       </div>
-    </div>
+    </section>
 
-    <div class="section">
-      <h2>Support</h2>
-      <div class="grid">
-        <a
-          target="_blank"
-          href="https://tenstorrent.com/faq"
-          class="card small-card"
-        >
-          <img src="_static/home/faq.png" alt="FAQ" />
-          <h4>FAQ</h4>
+    <section class="tt-home-section tt-home-section--legacy" aria-labelledby="tt-home-legacy-heading">
+      <h2 id="tt-home-legacy-heading" class="tt-home-section-title">Legacy hardware</h2>
+      <div class="tt-home-card-grid tt-home-card-grid--small">
+        <a class="tt-home-mini-card tt-home-mini-card--legacy" href="aibs/grayskull/index.html">
+          <img src="_static/home/grayskull.png" alt="" loading="lazy" />
+          <h3>Grayskull™</h3>
         </a>
-        <a
-          target="_blank"
-          href="https://tenstorrent.atlassian.net/servicedesk/customer/portal/1"
-          class="card small-card"
-        >
-          <img src="_static/home/compliance.png" alt="Support" />
-          <h4>Request Support</h4>
+        <a class="tt-home-mini-card tt-home-mini-card--legacy" href="systems/t7000/index.html">
+          <img src="_static/home/t7000.png" alt="" loading="lazy" />
+          <h3>T7000</h3>
         </a>
-        <a
-          target="_blank"
-          href="https://tenstorrent.com/contact"
-          class="card small-card"
-        >
-          <img src="_static/home/contact-us.png" alt="Contact Us" />
-          <h4>Contact Us</h4>
-        </a>
-        <a
-          target="_blank"
-          href="https://discord.com/invite/tenstorrent"
-          class="card small-card discord-card"
-        >
-          <img src="_static/home/discord.svg" alt="Discord" />
-          <h4>Join Our Discord</h4>
+        <a class="tt-home-mini-card tt-home-mini-card--legacy" href="systems/t1000/index.html">
+          <img src="_static/home/t1000.png" alt="" loading="lazy" />
+          <h3>T1000</h3>
         </a>
       </div>
-    </div>
-
-    <div class="section">
-      <h2>Legacy</h2>
-      <div class="grid">
-        <a href="aibs/grayskull" class="card small-card legacy-card">
-          <img src="_static/home/grayskull.png" alt="Grayskull™" />
-          <h4>Grayskull™</h4>
-        </a>
-        <a href="systems/t7000" class="card small-card legacy-card">
-          <img src="_static/home/t7000.png" alt="T7000" />
-          <h4>T7000</h4>
-        </a>
-        <a href="systems/t1000" class="card small-card legacy-card">
-          <img src="_static/home/t1000.png" alt="T1000" />
-          <h4>T1000</h4>
-        </a>
-      </div>
-    </div>
+    </section>
   </div>
-</body>
+</div>
+<script>
+(function () {
+  document.body.classList.add("tt-home-body");
+})();
+</script>

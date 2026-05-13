@@ -65,6 +65,8 @@ html_context = {
         "homepage",
         "https://firdovsimammedovk.github.io/tenstorrent/",
     ),
+    # Shared layout: global header + mint sidebar (core docs hub only).
+    "show_tt_docs_topbar": True,
 }
 
 def setup(app):

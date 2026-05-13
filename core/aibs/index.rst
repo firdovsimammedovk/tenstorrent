@@ -1,8 +1,13 @@
 Cards
 =======================================
+.. meta::
+   :hide_feedback: true
+
+.. raw:: html
+   :file: _templates/aibs_cards.html
+
 .. toctree::
-   :maxdepth: 1
+   :hidden:
 
    blackhole/index
    wormhole/index
-
